@@ -10,7 +10,7 @@ data class UnsplashPhoto(
     val width: Int,
     val height: Int,
     val color: String? = "#000000",
-    val tags: List<UnsplashPhotoTag>,
+    val tags: List<UnsplashPhotoTag>?,
     val likes: Int,
     val description: String?,
     val urls: UnsplashUrls,
