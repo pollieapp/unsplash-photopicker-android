@@ -23,6 +23,7 @@ interface NetworkEndpoints {
     fun searchPhotos(
         @Query("client_id") clientId: String,
         @Query("query") criteria: String,
+        @Query("lang") lang: String,
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int
     ): Observable<Response<SearchResponse>>

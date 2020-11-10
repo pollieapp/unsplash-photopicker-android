@@ -30,6 +30,7 @@ class SearchPhotoDataSource(
         networkEndpoints.searchPhotos(
             UnsplashPhotoPicker.getAccessKey(),
             criteria,
+            UnsplashPhotoPicker.getLang(),
             1,
             params.requestedLoadSize
         )
@@ -73,6 +74,7 @@ class SearchPhotoDataSource(
         networkEndpoints.searchPhotos(
             UnsplashPhotoPicker.getAccessKey(),
             criteria,
+            UnsplashPhotoPicker.getLang(),
             params.key,
             params.requestedLoadSize
         )

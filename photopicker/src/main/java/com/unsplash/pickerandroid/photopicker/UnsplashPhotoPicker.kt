@@ -13,6 +13,8 @@ object UnsplashPhotoPicker {
 
     private lateinit var secretKey: String
 
+    private var lang: String = "en"
+
     private const val DEFAULT_PAGE_SIZE = 20
 
     private var pageSize: Int = DEFAULT_PAGE_SIZE
@@ -23,11 +25,13 @@ object UnsplashPhotoPicker {
         application: Application,
         accessKey: String,
         secretKey: String,
+        lang: String = "en",
         pageSize: Int = DEFAULT_PAGE_SIZE
     ): UnsplashPhotoPicker {
         this.application = application
         this.accessKey = accessKey
         this.secretKey = secretKey
+        this.lang = lang
         this.pageSize = pageSize
         return this
     }
@@ -38,6 +42,10 @@ object UnsplashPhotoPicker {
 
     fun getAccessKey(): String {
         return accessKey
+    }
+
+    fun getLang(): String {
+        return lang
     }
 
     fun getSecretKey(): String {
