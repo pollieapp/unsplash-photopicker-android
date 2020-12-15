@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(
                 UnsplashPickerActivity.getStartingIntent(
                     this,
-                    !main_single_radio_button.isChecked
+                    !main_single_radio_button.isChecked,
+                    query = ""
                 ), REQUEST_CODE
             )
         }
