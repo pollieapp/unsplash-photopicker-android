@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--These colors will be overridden by your app module-->
-    <color name="colorPrimary">#181818</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#181818</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="primaryTextColor">#000000</color>
     <!--Please do not override those colors-->
     <color name="pickerColorBackground">#ffffffff</color>
     <color name="pickerColorDarkOverlay">#dd000000</color>

@@ -33,6 +33,8 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
 
     private var mIsMultipleSelection = false
 
+    private var query = ""
+
     private var mCurrentState = UnsplashPickerState.IDLE
 
     private var mPreviousState = UnsplashPickerState.IDLE
@@ -41,6 +43,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_picker)
         mIsMultipleSelection = intent.getBooleanExtra(EXTRA_IS_MULTIPLE, false)
+        query = intent.getStringExtra(EXTRA_QUERY)
         // recycler view layout manager
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         // recycler view adapter
@@ -67,6 +70,14 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
                     .get(UnsplashPickerViewModel::class.java)
         observeViewModel()
         mViewModel.bindSearch(unsplash_picker_edit_text)
+
+        mCurrentState = UnsplashPickerState.SEARCHING
+        if (query != "") {
+            unsplash_picker_edit_text.setText(query)
+            updateUiFromState(false)
+        } else {
+            updateUiFromState(true)
+        }
     }
 
     /**
@@ -175,7 +186,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
     STATES
      */
 
-    private fun updateUiFromState() {
+    private fun updateUiFromState(openKeyboard: Boolean = true) {
         when (mCurrentState) {
             UnsplashPickerState.IDLE -> {
                 // back and search buttons visible
@@ -210,8 +221,10 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
                 // right clear button on top of edit text visible
                 unsplash_picker_clear_image_view.visibility = View.VISIBLE
                 // keyboard up
-                unsplash_picker_edit_text.requestFocus()
-                unsplash_picker_edit_text.openKeyboard(this)
+                if(openKeyboard) {
+                    unsplash_picker_edit_text.requestFocus()
+                    unsplash_picker_edit_text.openKeyboard(this)
+                }
                 // clear list selection
                 mAdapter.clearSelection()
                 mAdapter.notifyDataSetChanged()
@@ -236,6 +249,7 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
     companion object {
         const val EXTRA_PHOTOS = "EXTRA_PHOTOS"
         private const val EXTRA_IS_MULTIPLE = "EXTRA_IS_MULTIPLE"
+        private const val EXTRA_QUERY = "EXTRA_QUERY"
 
         /**
          * @param callingContext the calling context
@@ -243,9 +257,10 @@ class UnsplashPickerActivity : AppCompatActivity(), OnPhotoSelectedListener {
          *
          * @return the intent needed to come to this activity
          */
-        fun getStartingIntent(callingContext: Context, isMultipleSelection: Boolean): Intent {
+        fun getStartingIntent(callingContext: Context, isMultipleSelection: Boolean, query: String?): Intent {
             val intent = Intent(callingContext, UnsplashPickerActivity::class.java)
             intent.putExtra(EXTRA_IS_MULTIPLE, isMultipleSelection)
+            intent.putExtra(EXTRA_QUERY, query)
             return intent
         }
     }
